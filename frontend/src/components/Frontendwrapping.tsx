@@ -1,19 +1,10 @@
-// src/components/OpenAIComponent.js
-
-import React, { useState } from 'react';
+import React from 'react';
 import { getOpenAIResponse } from '../services/openaiService.ts';
+import { useState } from 'react';
+import OpenAIComponent from './OpenAIComponent';
+import './Style.css'; // make sure this includes styles for the layout
 
-const OpenAIComponent = () => {
-  const [input, setInput] = useState('');
-  const [response, setResponse] = useState('');
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const aiResponse = await getOpenAIResponse(input);
-    setResponse(aiResponse ? aiResponse : 'Error');
-    //setResponse(aiResponse.choices[0].text);
-  };
-
+const TriageApp: React.FC = () => {
   return (
     <div className="container">
       <header>
@@ -34,18 +25,20 @@ const OpenAIComponent = () => {
               Get access to the manual
             </a>
           </p>
-          
+          <p>Where’s the closest medical treatment?</p>
           <div className="disclaimer">
             <h3>DISCLAIMER:</h3>
             <h4>This is not a substitute for medical treatment.</h4>
             <h4>Please visit a medical professional for proper care.</h4>
           </div>
         </aside>
+
         <section className="main-panel">
           <div className="intro">
             <p>Welcome to Triage! Your personal AI aide!</p>
           </div>
-      <form onSubmit={handleSubmit}>
+
+          <form onSubmit={handleSubmit}>
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -61,16 +54,17 @@ const OpenAIComponent = () => {
       <div>
         <h2>Response:</h2>
         <p>{response}</p>
-        
       </div>
+          <OpenAIComponent />
         </section>
       </main>
-       <footer>
+
+      <footer>
         <p>© 2025 Triage AI. All rights reserved.</p>
-        <p>Contact us at: some-link tbd"</p>
-    </footer>
+        <p>Contact us at: [Link TBD]</p>
+      </footer>
     </div>
   );
 };
 
-export default OpenAIComponent;
+export default TriageApp;
