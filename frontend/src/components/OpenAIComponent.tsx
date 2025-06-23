@@ -1,20 +1,36 @@
-// src/components/OpenAIComponent.js
+// frontend/src/components/OpenAIComponent.tsx
 
 import React, { useState } from 'react';
 import { getOpenAIResponse } from '../services/openaiService.ts';
+import './OpenAIComponent.css';
 
 const OpenAIComponent = () => {
-  const [input, setInput] = useState('');
+  const [prompt, setPrompt] = useState('');
   const [response, setResponse] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const aiResponse = await getOpenAIResponse(input);
-    setResponse(aiResponse ? aiResponse : 'Error');
-    //setResponse(aiResponse.choices[0].text);
+
+    if (!prompt.trim()) {
+      setResponse('Please enter a prompt.');
+      return;
+    }
+
+    setLoading(true);
+    setResponse('');
+    try {
+      const aiResponse = await getOpenAIResponse(prompt);
+      setResponse(aiResponse || 'Error');
+    } catch (err) {
+      setResponse('Error fetching response.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
+
     <div className="container">
       <header>
         <h1>Triage</h1>
@@ -45,18 +61,19 @@ const OpenAIComponent = () => {
           <div className="intro">
             <p>Welcome to Triage! Your personal AI aide!</p>
           </div>
+
       <form onSubmit={handleSubmit}>
         <textarea
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          // rows="5"
-          // cols="50"
+          placeholder="Type your prompt here..."
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
           rows={5}
           cols={50}
-          placeholder="Type your prompt here..."
         />
         <br />
-        <button type="submit">Get Response</button>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Loading...' : 'Get Response'}
+        </button>
       </form>
       <div>
         <h2>Response:</h2>
