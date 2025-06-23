@@ -118,12 +118,13 @@ header{
 }
 .response-container {
     display:block;
-    text-align: center;
+    text-align: left;
     max-width: 60%;
     overflow-y: auto;
     background-color: #ffffff;
     left: 300px;
     margin-bottom: 0px;
+    white-space: pre-wrap;
 
 }
 .response-header {

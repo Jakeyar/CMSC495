@@ -77,14 +77,24 @@ const OpenAIComponent = () => {
           {loading ? 'Loading...' : 'Get Response'}
         </button>
       </form>
-      <div
-      className= "response-container">
-        <h2
-        className='response-header'>
-          Response:</h2>
-        <p>{response}</p>
-        
-      </div>
+      {loading && (
+        <div className="spinner-container">
+          <div className="spinner" data-testid="spinner"/>
+          <p>Please wait while we process your request...</p>
+        </div>
+      )}
+
+      {!loading && response && (
+        <div
+        className= "response-container">
+          <h2
+          className='response-header'>
+            Response:</h2>
+          <p>{response}</p>
+          
+        </div>
+      )}
+
         </section>
       </main>
        <footer
