@@ -39,7 +39,8 @@ const OpenAIComponent = () => {
       <hr />
 
       <main>
-        <aside>
+        <aside
+        className='aside'>
           <p>
             <a
               href="https://www.redcross.org/content/dam/redcross/uncategorized/11/RTE_Textbook_Sample.pdf"
@@ -64,6 +65,7 @@ const OpenAIComponent = () => {
 
       <form onSubmit={handleSubmit}>
         <textarea
+        className= "prompt-input"
           placeholder="Type your prompt here..."
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
@@ -75,14 +77,18 @@ const OpenAIComponent = () => {
           {loading ? 'Loading...' : 'Get Response'}
         </button>
       </form>
-      <div>
-        <h2>Response:</h2>
+      <div
+      className= "response-container">
+        <h2
+        className='response-header'>
+          Response:</h2>
         <p>{response}</p>
         
       </div>
         </section>
       </main>
-       <footer>
+       <footer
+       className= "footer">
         <p>© 2025 Triage AI. All rights reserved.</p>
         <p>Contact us at: some-link tbd"</p>
     </footer>
